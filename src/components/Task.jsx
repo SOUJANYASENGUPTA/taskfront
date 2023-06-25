@@ -35,6 +35,7 @@ const TaskManagement = () => {
       .then(() => {
         console.log('New task added');
         setNewTask({
+          id: '',
           projectId: '',
           name: '',
           description: '',
@@ -53,6 +54,7 @@ const TaskManagement = () => {
   const editTaskForm = (task) => {
     setEditTask(task);
     setNewTask({
+      id: task.id,
       projectId: task.projectId,
       name: task.name,
       description: task.description,
@@ -70,6 +72,7 @@ const TaskManagement = () => {
         console.log('Task updated');
         setEditTask(null);
         setNewTask({
+          id: '',
           projectId: '',
           name: '',
           description: '',
@@ -88,6 +91,7 @@ const TaskManagement = () => {
   const cancelEdit = () => {
     setEditTask(null);
     setNewTask({
+      id: '',
       projectId: '',
       name: '',
       description: '',
@@ -116,6 +120,12 @@ const TaskManagement = () => {
       <div>
         <h2>Create Task</h2>
         <form onSubmit={editTask ? updateTask : createTask}>
+        <input
+            type="text"
+            placeholder="Task ID"
+            value={newTask.id}
+            onChange={(e) => setNewTask({ ...newTask, id: e.target.value })}
+          />
           <input
             type="text"
             placeholder="Project ID"
@@ -168,6 +178,7 @@ const TaskManagement = () => {
         <table>
           <thead>
             <tr>
+              <th>Task Id</th>
               <th>Project ID</th>
               <th>Name</th>
               <th>Description</th>
@@ -181,6 +192,7 @@ const TaskManagement = () => {
           <tbody>
             {tasks.map(task => (
               <tr key={task.id}>
+                <td>{task.id}</td>
                 <td>{task.projectId}</td>
                 <td>{task.name}</td>
                 <td>{task.description}</td>
